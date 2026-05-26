@@ -185,18 +185,20 @@ a {
 .header-nav {
   position: sticky;
   top: 0;
-  background: rgba(7, 13, 30, 0.8);
+  background: rgba(7, 13, 30, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--navy-border);
   padding: 1.2rem 0;
-  z-index: 99;
+  z-index: 100;
   transition: var(--transition-smooth);
 }
 
 .header-nav.scrolled {
   padding: 0.8rem 0;
-  background: rgba(7, 13, 30, 0.95);
+  background: rgba(7, 13, 30, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .nav-logo {

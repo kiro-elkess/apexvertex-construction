@@ -2,243 +2,254 @@ import os
 import json
 from datetime import datetime, timedelta
 
-# Define base blog posts
-blog_posts = [
-    {
-        "slug": "dallas-commercial-construction-cost-2026",
-        "title": "Evaluating Dallas Commercial Construction Costs Per Square Foot (2026 Guide)",
-        "description": "A detailed breakdown of Dallas commercial construction costs per square foot in 2026. Learn about steel index prices, labor, zoning, and Design-Build contractor fees.",
-        "tag": "Cost Analysis",
-        "date": "2026-05-24",
-        "readTime": "8 min read",
-        "keywords": ["Dallas commercial general contractor", "commercial building cost per sq ft Dallas", "general contracting Dallas cost"],
-        "sections": [
-            {
-                "heading": "Introduction: Dallas Commercial Construction Trends in 2026",
-                "text": "The commercial real estate landscape in the Dallas-Fort Worth metroplex continues to experience rapid expansion. However, shifting labor availability and material costs make accurate budget projections critical. In 2026, estimating your building cost per square foot requires a deep understanding of local steel indices, concrete supply lines, and subcontractor margins."
-            },
-            {
-                "heading": "Dallas Construction Cost Breakdown per Square Foot",
-                "text": "Commercial building costs in Dallas vary significantly depending on the class of structure (Class A office space, warehouse, or light industrial). Below is a typical breakdown for Dallas commercial construction in 2026:",
-                "table": [
-                    ["Building Type", "Average Cost Range (per sq ft)", "Key Cost Drivers"],
-                    ["Class A Office Space", "$280 - $410", "Premium finishes, glass glazing systems"],
-                    ["Mid-Rise Mixed-Use", "$240 - $350", "Structural concrete foundations, retail zoning"],
-                    ["Industrial Logistics Hub", "$110 - $165", "Structural steel framing, clear heights"],
-                    ["Outpatient Medical Center", "$320 - $480", "HVAC zoning, medical-grade compliance"]
-                ]
-            },
-            {
-                "heading": "Mitigating Costs with Design-Build Management",
-                "text": "To avoid cost overruns, developers are moving away from traditional Design-Bid-Build models. Partnering with a unified Dallas commercial general contractor who handles both architectural blueprints and site construction mitigates clash risks, lowering total cost variables by up to 12%."
-            }
-        ]
-    },
-    {
-        "slug": "atlanta-commercial-permitting-timelines-guide",
-        "title": "Atlanta Commercial Permitting Timelines: How to Avoid Project Delays",
-        "description": "Avoid costly construction delays in Georgia. Our guide reviews the Atlanta commercial permitting process, reviews zoning variances, and provides developer strategies.",
-        "tag": "Regulations",
-        "date": "2026-05-22",
-        "readTime": "6 min read",
-        "keywords": ["Atlanta commercial permitting", "general contractor Atlanta GA", "commercial zoning Atlanta"],
-        "sections": [
-            {
-                "heading": "The Permitting Bottleneck in Atlanta Commercial Real Estate",
-                "text": "For commercial developers in Atlanta, securing municipal permit approvals is often the most unpredictable phase of a project. With zoning updates in Fulton County and municipal review backlogs, wait times can stretch from weeks to several months, putting interest rates and contractor bookings at risk."
-            },
-            {
-                "heading": "Average Review Times by Permit Type (Atlanta Metro)",
-                "text": "Understanding the expected timeline for each stage of construction permitting allows developers to schedule sub-contractors and materials logistics accurately.",
-                "table": [
-                    ["Review Type", "Average Duration", "Zoning Entity"],
-                    ["Land Disturbance Permit (LDP)", "6 - 9 Weeks", "City of Atlanta Planning Office"],
-                    ["Structural & Building Permit", "8 - 12 Weeks", "Fulton County Building Department"],
-                    ["Mechanical/Electrical/Plumbing (MEP)", "4 - 6 Weeks", "Joint Municipal Inspectors"],
-                    ["Zoning Variance / Special Use", "12 - 20 Weeks", "Atlanta Zoning Board of Adjustment"]
-                ]
-            },
-            {
-                "heading": "How a Design-Build General Contractor Accelerates Permitting",
-                "text": "An experienced general contractor in Atlanta GA will submit permit packages concurrently and use 3D BIM models to prove compliance to municipal inspectors beforehand. Pre-vetted code reviews reduce structural revisions, saving an average of 4 to 6 weeks on permit turnaround."
-            }
-        ]
-    },
-    {
-        "slug": "austin-architectural-design-fees-commercial-buildings",
-        "title": "Austin Architectural Design Fees for Commercial Real Estate",
-        "description": "An analysis of architectural design fees for commercial buildings in Austin, Texas. Compare percentage of construction cost models and fixed fee guidelines.",
-        "tag": "Design-Build",
-        "date": "2026-05-20",
-        "readTime": "7 min read",
-        "keywords": ["Austin commercial architects", "architectural design fees Austin", "BIM modeling cost Austin"],
-        "sections": [
-            {
-                "heading": "Pricing Architect Services in the Austin Tech Corridor",
-                "text": "Austin, Texas continues to attract major technology headquarters and commercial mixed-use developers. When planning an office tower or creative studio, understanding how architectural design fees are structured helps developers optimize their pre-construction financing."
-            },
-            {
-                "heading": "Architect Fee Structures: Percentage vs. Flat Rates",
-                "text": "Commercial architects in Austin typically structure their design fees using one of three standard billing models:",
-                "table": [
-                    ["Billing Model", "Average Rates (Austin Market)", "Best Fit For"],
-                    ["Percentage of Construction Cost", "5% - 9% of total build", "Complex custom designs & medical facilities"],
-                    ["Fixed Fee / Flat Rate", "$15,000 - $150,000+", "Standard retail centers & warehouses"],
-                    ["Hourly Consultation Rate", "$180 - $275 per hour", "Pre-construction feasibility audits"]
-                ]
-            },
-            {
-                "heading": "Reducing Architectural Redundancy with BIM Clash Detection",
-                "text": "By utilizing advanced Building Information Modeling (BIM) mockups, architects and structural engineers can review framing and ductwork systems in 3D. Eliminating layout clashes prior to permit submission reduces design revision billing and keeps project timelines on track."
-            }
-        ]
-    },
-    {
-        "slug": "houston-soil-stabilization-foundation-engineering",
-        "title": "Houston Soil Stabilization: Essential Foundation Engineering for B2B Developers",
-        "description": "Houston clay soils present unique foundation structural engineering challenges. Learn about soil stabilization techniques, concrete pouring, and costs in coastal Texas.",
-        "tag": "Engineering",
-        "date": "2026-05-18",
-        "readTime": "9 min read",
-        "keywords": ["Houston structural engineering", "soil stabilization cost Houston", "commercial foundations Texas"],
-        "sections": [
-            {
-                "heading": "The Challenge of Houston Clay Soils",
-                "text": "The coastal plains of Houston, Texas are dominated by expansive clay soils, which expand when wet and contract during dry periods. For commercial structures and multi-tenant offices, failing to address soil stability prior to pouring concrete leads to foundation shifting and cracking."
-            },
-            {
-                "heading": "Comparing Soil Stabilization Methods for Commercial Foundations",
-                "text": "Structural engineers use several methods to stabilize ground soils in Houston, depending on the chemical composition of the clay:",
-                "table": [
-                    ["Method", "Average Cost per Sq Ft", "Structural Benefit"],
-                    ["Lime Stabilization", "$2.50 - $4.00", "Reduces plasticity of high-clay soils"],
-                    ["Chemical Injection (Polyurethane)", "$4.50 - $7.50", "Fills void spaces, stabilizes deep layers"],
-                    ["Mechanical Compaction & Fill", "$3.00 - $5.00", "Replaces expansive soil with stable sand/gravel"],
-                    ["Deep Pier Concrete Piles", "$1,200 - $2,500 per pier", "Transfers loads to stable deep soil layers"]
-                ]
-            },
-            {
-                "heading": "Ensuring Long-Term Structural Integrity",
-                "text": "Working with a specialist in Houston structural engineering ensures that soil tests (geotechnical reports) are conducted and interpreted correctly, allowing foundation designers to select the optimal concrete foundation thickness and steel reinforcement levels."
-            }
-        ]
-    },
-    {
-        "slug": "leed-certification-roi-commercial-buildings-texas",
-        "title": "LEED Certification ROI: Is Green Building Worth It for Texas Developers?",
-        "description": "Calculate the return on investment of LEED certification for Texas commercial real estate. Compare building costs with energy savings and tax incentives.",
-        "tag": "Sustainability",
-        "date": "2026-05-16",
-        "readTime": "8 min read",
-        "keywords": ["green commercial building Texas", "LEED certification cost Dallas", "sustainable construction Austin"],
-        "sections": [
-            {
-                "heading": "The Business Case for LEED Certification in Texas",
-                "text": "In cities like Austin and Dallas, green building codes are becoming standard. However, pursuing official LEED (Leadership in Energy and Environmental Design) certification adds pre-construction documentation and material costs. Understanding the operational return on investment (ROI) helps commercial developers justify green investments."
-            },
-            {
-                "heading": "LEED Cost Premiums vs. Annual Operational Savings",
-                "text": "While building to LEED standards costs slightly more initially, the reduction in electricity, water, and waste bills compounds quickly:",
-                "table": [
-                    ["LEED Level", "Estimated Build Cost Premium", "Average Utility Reduction", "Payback Period"],
-                    ["Certified / Silver", "1% - 3%", "12% - 18% annually", "3 - 5 Years"],
-                    ["Gold", "3% - 5%", "20% - 28% annually", "5 - 7 Years"],
-                    ["Platinum", "6% - 10%", "30% - 40% annually", "7 - 10 Years"]
-                ]
-            },
-            {
-                "heading": "Texas Green Building Incentives and Tax Breaks",
-                "text": "Municipalities and utility companies across Austin, Dallas, and Houston offer fast-track permitting, property tax exemptions, and HVAC rebates for LEED-certified commercial real estate, directly reducing initial construction budget strain."
-            }
-        ]
-    },
-    {
-        "slug": "design-build-versus-general-contracting-comparison",
-        "title": "Design-Build vs. General Contracting: Which Saves More on Commercial Projects?",
-        "description": "A direct comparison between Design-Build and traditional General Contracting delivery methods for commercial developers in Texas and Georgia.",
-        "tag": "Design-Build",
-        "date": "2026-05-14",
-        "readTime": "7 min read",
-        "keywords": ["Design-Build general contracting US", "commercial builders Atlanta", "construction management Houston"],
-        "sections": [
-            {
-                "heading": "The Shift Toward Integrated Construction Delivery",
-                "text": "Historically, B2B commercial developers hired architects and general contractors under separate contracts. Today, the Design-Build model—where a single general contracting firm manages both design schematics and active construction—is rapidly becoming the standard due to its ability to streamline communication and lower cost risks."
-            },
-            {
-                "heading": "Comparison Matrix: Design-Build vs. Design-Bid-Build",
-                "text": "Below is a comparative breakdown of how both models affect key construction variables:",
-                "table": [
-                    ["Metric", "Traditional General Contracting", "Design-Build Delivery"],
-                    ["Point of Contact", "Separate (Architect & Contractor)", "Single Point of Responsibility"],
-                    ["Clash Resolution", "Client arbitrates disputes", "Internal engineering resolution"],
-                    ["Cost Overruns", "Average 8% - 15%", "Average less than 3%"],
-                    ["Project Speed", "Sequential, slower delivery", "Overlapping phases, 15% faster"]
-                ]
-            },
-            {
-                "heading": "Which Method Is Best for Your Commercial Project?",
-                "text": "For complex developments, medical facilities, and high-end estates in Texas and Georgia, Design-Build offers superior cost controls, whereas simple storage facilities or standard retail shells may still suit traditional competitive bidding."
-            }
-        ]
-    }
-]
+# Define base paths
+meta_data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "blogs-meta.json")
+blog_posts = []
 
-tags = ["Cost Analysis", "Sustainability", "Regulations", "Design-Build", "Engineering"]
-locations = ["Austin, TX", "Dallas, TX", "Houston, TX", "Atlanta, GA"]
-keywords_pool = [
-    ["commercial general contractor", "building contractor", "general contracting"],
-    ["commercial architects", "architectural layout", "architectural design fees"],
-    ["structural engineering", "foundation calculations", "steel framing cost"],
-    ["green building", "LEED certified developers", "sustainable materials"],
-    ["project management", "construction timelines", "design-build company"]
-]
+if os.path.exists(meta_data_path):
+    print("Loading existing metadata from blogs-meta.json...")
+    try:
+        with open(meta_data_path, "r", encoding="utf-8") as f:
+            blog_posts = json.load(f)
+    except Exception as err:
+        print(f"Failed to parse blogs-meta.json: {err}")
 
-base_date = datetime.strptime("2026-05-25", "%Y-%m-%d")
+if not blog_posts:
+    # Define base blog posts
+    blog_posts = [
+        {
+            "slug": "dallas-commercial-construction-cost-2026",
+            "title": "Evaluating Dallas Commercial Construction Costs Per Square Foot (2026 Guide)",
+            "description": "A detailed breakdown of Dallas commercial construction costs per square foot in 2026. Learn about steel index prices, labor, zoning, and Design-Build contractor fees.",
+            "tag": "Cost Analysis",
+            "date": "2026-05-24",
+            "readTime": "8 min read",
+            "keywords": ["Dallas commercial general contractor", "commercial building cost per sq ft Dallas", "general contracting Dallas cost"],
+            "sections": [
+                {
+                    "heading": "Introduction: Dallas Commercial Construction Trends in 2026",
+                    "text": "The commercial real estate landscape in the Dallas-Fort Worth metroplex continues to experience rapid expansion. However, shifting labor availability and material costs make accurate budget projections critical. In 2026, estimating your building cost per square foot requires a deep understanding of local steel indices, concrete supply lines, and subcontractor margins."
+                },
+                {
+                    "heading": "Dallas Construction Cost Breakdown per Square Foot",
+                    "text": "Commercial building costs in Dallas vary significantly depending on the class of structure (Class A office space, warehouse, or light industrial). Below is a typical breakdown for Dallas commercial construction in 2026:",
+                    "table": [
+                        ["Building Type", "Average Cost Range (per sq ft)", "Key Cost Drivers"],
+                        ["Class A Office Space", "$280 - $410", "Premium finishes, glass glazing systems"],
+                        ["Mid-Rise Mixed-Use", "$240 - $350", "Structural concrete foundations, retail zoning"],
+                        ["Industrial Logistics Hub", "$110 - $165", "Structural steel framing, clear heights"],
+                        ["Outpatient Medical Center", "$320 - $480", "HVAC zoning, medical-grade compliance"]
+                    ]
+                },
+                {
+                    "heading": "Mitigating Costs with Design-Build Management",
+                    "text": "To avoid cost overruns, developers are moving away from traditional Design-Bid-Build models. Partnering with a unified Dallas commercial general contractor who handles both architectural blueprints and site construction mitigates clash risks, lowering total cost variables by up to 12%."
+                }
+            ]
+        },
+        {
+            "slug": "atlanta-commercial-permitting-timelines-guide",
+            "title": "Atlanta Commercial Permitting Timelines: How to Avoid Project Delays",
+            "description": "Avoid costly construction delays in Georgia. Our guide reviews the Atlanta commercial permitting process, reviews zoning variances, and provides developer strategies.",
+            "tag": "Regulations",
+            "date": "2026-05-22",
+            "readTime": "6 min read",
+            "keywords": ["Atlanta commercial permitting", "general contractor Atlanta GA", "commercial zoning Atlanta"],
+            "sections": [
+                {
+                    "heading": "The Permitting Bottleneck in Atlanta Commercial Real Estate",
+                    "text": "For commercial developers in Atlanta, securing municipal permit approvals is often the most unpredictable phase of a project. With zoning updates in Fulton County and municipal review backlogs, wait times can stretch from weeks to several months, putting interest rates and contractor bookings at risk."
+                },
+                {
+                    "heading": "Average Review Times by Permit Type (Atlanta Metro)",
+                    "text": "Understanding the expected timeline for each stage of construction permitting allows developers to schedule sub-contractors and materials logistics accurately.",
+                    "table": [
+                        ["Review Type", "Average Duration", "Zoning Entity"],
+                        ["Land Disturbance Permit (LDP)", "6 - 9 Weeks", "City of Atlanta Planning Office"],
+                        ["Structural & Building Permit", "8 - 12 Weeks", "Fulton County Building Department"],
+                        ["Mechanical/Electrical/Plumbing (MEP)", "4 - 6 Weeks", "Joint Municipal Inspectors"],
+                        ["Zoning Variance / Special Use", "12 - 20 Weeks", "Atlanta Zoning Board of Adjustment"]
+                    ]
+                },
+                {
+                    "heading": "How a Design-Build General Contractor Accelerates Permitting",
+                    "text": "An experienced general contractor in Atlanta GA will submit permit packages concurrently and use 3D BIM models to prove compliance to municipal inspectors beforehand. Pre-vetted code reviews reduce structural revisions, saving an average of 4 to 6 weeks on permit turnaround."
+                }
+            ]
+        },
+        {
+            "slug": "austin-architectural-design-fees-commercial-buildings",
+            "title": "Austin Architectural Design Fees for Commercial Real Estate",
+            "description": "An analysis of architectural design fees for commercial buildings in Austin, Texas. Compare percentage of construction cost models and fixed fee guidelines.",
+            "tag": "Design-Build",
+            "date": "2026-05-20",
+            "readTime": "7 min read",
+            "keywords": ["Austin commercial architects", "architectural design fees Austin", "BIM modeling cost Austin"],
+            "sections": [
+                {
+                    "heading": "Pricing Architect Services in the Austin Tech Corridor",
+                    "text": "Austin, Texas continues to attract major technology headquarters and commercial mixed-use developers. When planning an office tower or creative studio, understanding how architectural design fees are structured helps developers optimize their pre-construction financing."
+                },
+                {
+                    "heading": "Architect Fee Structures: Percentage vs. Flat Rates",
+                    "text": "Commercial architects in Austin typically structure their design fees using one of three standard billing models:",
+                    "table": [
+                        ["Billing Model", "Average Rates (Austin Market)", "Best Fit For"],
+                        ["Percentage of Construction Cost", "5% - 9% of total build", "Complex custom designs & medical facilities"],
+                        ["Fixed Fee / Flat Rate", "$15,000 - $150,000+", "Standard retail centers & warehouses"],
+                        ["Hourly Consultation Rate", "$180 - $275 per hour", "Pre-construction feasibility audits"]
+                    ]
+                },
+                {
+                    "heading": "Reducing Architectural Redundancy with BIM Clash Detection",
+                    "text": "By utilizing advanced Building Information Modeling (BIM) mockups, architects and structural engineers can review framing and ductwork systems in 3D. Eliminating layout clashes prior to permit submission reduces design revision billing and keeps project timelines on track."
+                }
+            ]
+        },
+        {
+            "slug": "houston-soil-stabilization-foundation-engineering",
+            "title": "Houston Soil Stabilization: Essential Foundation Engineering for B2B Developers",
+            "description": "Houston clay soils present unique foundation structural engineering challenges. Learn about soil stabilization techniques, concrete pouring, and costs in coastal Texas.",
+            "tag": "Engineering",
+            "date": "2026-05-18",
+            "readTime": "9 min read",
+            "keywords": ["Houston structural engineering", "soil stabilization cost Houston", "commercial foundations Texas"],
+            "sections": [
+                {
+                    "heading": "The Challenge of Houston Clay Soils",
+                    "text": "The coastal plains of Houston, Texas are dominated by expansive clay soils, which expand when wet and contract during dry periods. For commercial structures and multi-tenant offices, failing to address soil stability prior to pouring concrete leads to foundation shifting and cracking."
+                },
+                {
+                    "heading": "Comparing Soil Stabilization Methods for Commercial Foundations",
+                    "text": "Structural engineers use several methods to stabilize ground soils in Houston, depending on the chemical composition of the clay:",
+                    "table": [
+                        ["Method", "Average Cost per Sq Ft", "Structural Benefit"],
+                        ["Lime Stabilization", "$2.50 - $4.00", "Reduces plasticity of high-clay soils"],
+                        ["Chemical Injection (Polyurethane)", "$4.50 - $7.50", "Fills void spaces, stabilizes deep layers"],
+                        ["Mechanical Compaction & Fill", "$3.00 - $5.00", "Replaces expansive soil with stable sand/gravel"],
+                        ["Deep Pier Concrete Piles", "$1,200 - $2,500 per pier", "Transfers loads to stable deep soil layers"]
+                    ]
+                },
+                {
+                    "heading": "Ensuring Long-Term Structural Integrity",
+                    "text": "Working with a specialist in Houston structural engineering ensures that soil tests (geotechnical reports) are conducted and interpreted correctly, allowing foundation designers to select the optimal concrete foundation thickness and steel reinforcement levels."
+                }
+            ]
+        },
+        {
+            "slug": "leed-certification-roi-commercial-buildings-texas",
+            "title": "LEED Certification ROI: Is Green Building Worth It for Texas Developers?",
+            "description": "Calculate the return on investment of LEED certification for Texas commercial real estate. Compare building costs with energy savings and tax incentives.",
+            "tag": "Sustainability",
+            "date": "2026-05-16",
+            "readTime": "8 min read",
+            "keywords": ["green commercial building Texas", "LEED certification cost Dallas", "sustainable construction Austin"],
+            "sections": [
+                {
+                    "heading": "The Business Case for LEED Certification in Texas",
+                    "text": "In cities like Austin and Dallas, green building codes are becoming standard. However, pursuing official LEED (Leadership in Energy and Environmental Design) certification adds pre-construction documentation and material costs. Understanding the operational return on investment (ROI) helps commercial developers justify green investments."
+                },
+                {
+                    "heading": "LEED Cost Premiums vs. Annual Operational Savings",
+                    "text": "While building to LEED standards costs slightly more initially, the reduction in electricity, water, and waste bills compounds quickly:",
+                    "table": [
+                        ["LEED Level", "Estimated Build Cost Premium", "Average Utility Reduction", "Payback Period"],
+                        ["Certified / Silver", "1% - 3%", "12% - 18% annually", "3 - 5 Years"],
+                        ["Gold", "3% - 5%", "20% - 28% annually", "5 - 7 Years"],
+                        ["Platinum", "6% - 10%", "30% - 40% annually", "7 - 10 Years"]
+                    ]
+                },
+                {
+                    "heading": "Texas Green Building Incentives and Tax Breaks",
+                    "text": "Municipalities and utility companies across Austin, Dallas, and Houston offer fast-track permitting, property tax exemptions, and HVAC rebates for LEED-certified commercial real estate, directly reducing initial construction budget strain."
+                }
+            ]
+        },
+        {
+            "slug": "design-build-versus-general-contracting-comparison",
+            "title": "Design-Build vs. General Contracting: Which Saves More on Commercial Projects?",
+            "description": "A direct comparison between Design-Build and traditional General Contracting delivery methods for commercial developers in Texas and Georgia.",
+            "tag": "Design-Build",
+            "date": "2026-05-14",
+            "readTime": "7 min read",
+            "keywords": ["Design-Build general contracting US", "commercial builders Atlanta", "construction management Houston"],
+            "sections": [
+                {
+                    "heading": "The Shift Toward Integrated Construction Delivery",
+                    "text": "Historically, B2B commercial developers hired architects and general contractors under separate contracts. Today, the Design-Build model—where a single general contracting firm manages both design schematics and active construction—is rapidly becoming the standard due to its ability to streamline communication and lower cost risks."
+                },
+                {
+                    "heading": "Comparison Matrix: Design-Build vs. Design-Bid-Build",
+                    "text": "Below is a comparative breakdown of how both models affect key construction variables:",
+                    "table": [
+                        ["Metric", "Traditional General Contracting", "Design-Build Delivery"],
+                        ["Point of Contact", "Separate (Architect & Contractor)", "Single Point of Responsibility"],
+                        ["Clash Resolution", "Client arbitrates disputes", "Internal engineering resolution"],
+                        ["Cost Overruns", "Average 8% - 15%", "Average less than 3%"],
+                        ["Project Speed", "Sequential, slower delivery", "Overlapping phases, 15% faster"]
+                    ]
+                },
+                {
+                    "heading": "Which Method Is Best for Your Commercial Project?",
+                    "text": "For complex developments, medical facilities, and high-end estates in Texas and Georgia, Design-Build offers superior cost controls, whereas simple storage facilities or standard retail shells may still suit traditional competitive bidding."
+                }
+            ]
+        }
+    ]
 
-# Generate 24 additional blog posts to reach exactly 30
-for i in range(1, 25):
-    loc_idx = i % len(locations)
-    tag_idx = i % len(tags)
-    location = locations[loc_idx]
-    tag = tags[tag_idx]
-    
-    # Spread dates over the past month
-    delta_days = i * 1.1
-    post_date = (base_date - timedelta(days=delta_days)).strftime("%Y-%m-%d")
-    kw = keywords_pool[tag_idx]
-    
-    post = {
-        "slug": f"blog-post-{i}-construction-intelligence-{tag.lower().replace(' ', '-').replace('/', '-')}",
-        "title": f"Advanced Guide to {tag} for Commercial Real Estate in {location}",
-        "description": f"A comprehensive analysis of {tag} trends and best practices for B2B developers and general contractors operating in {location} in 2026.",
-        "tag": tag,
-        "date": post_date,
-        "readTime": f"{4 + (i % 5)} min read",
-        "keywords": [f"{tag.lower()} {location}", kw[0], kw[1]],
-        "sections": [
-            {
-                "heading": f"Understanding {tag} in {location} Metro Market",
-                "text": f"As commercial development in the {location} area matures, B2B planners are encountering new regulations, labor dynamics, and material price indexes. Navigating these factors requires a proactive approach to site estimations and structural layouts."
-            },
-            {
-                "heading": f"Key Metrics for {tag} (2026 Reference)",
-                "text": f"Below is a summarized table of cost and operational indicators for projects focusing on {tag} in the local market:",
-                "table": [
-                    ["Project Phase", "Relative Cost Index", "Estimated Schedule Impact"],
-                    ["Feasibility & Pre-con", "Low (3% of budget)", "1 - 3 Weeks"],
-                    ["BIM Design & Modeling", "Medium (6% of budget)", "2 - 4 Weeks"],
-                    ["Foundation & Structural Steel", "High (45% of budget)", "8 - 12 Weeks"],
-                    ["Occupancy Inspection & Handover", "Low (2% of budget)", "2 - 3 Weeks"]
-                ]
-            },
-            {
-                "heading": "Maximizing Project Efficiency",
-                "text": f"By working with a unified design-build company, commercial developers in {location} can consolidate their engineering, architectural drafting, and project management under a single general contract, resulting in faster occupancy and reduced overhead."
-            }
-        ]
-    }
-    blog_posts.append(post)
+    tags = ["Cost Analysis", "Sustainability", "Regulations", "Design-Build", "Engineering"]
+    locations = ["Austin, TX", "Dallas, TX", "Houston, TX", "Atlanta, GA"]
+    keywords_pool = [
+        ["commercial general contractor", "building contractor", "general contracting"],
+        ["commercial architects", "architectural layout", "architectural design fees"],
+        ["structural engineering", "foundation calculations", "steel framing cost"],
+        ["green building", "LEED certified developers", "sustainable materials"],
+        ["project management", "construction timelines", "design-build company"]
+    ]
+
+    base_date = datetime.strptime("2026-05-25", "%Y-%m-%d")
+
+    # Generate 24 additional blog posts programmatically
+    for i in range(1, 25):
+        loc_idx = i % len(locations)
+        tag_idx = i % len(tags)
+        location = locations[loc_idx]
+        tag = tags[tag_idx]
+        delta_days = i * 1.1
+        post_date = (base_date - timedelta(days=delta_days)).strftime("%Y-%m-%d")
+        kw = keywords_pool[tag_idx]
+        
+        post = {
+            "slug": f"blog-post-{i}-construction-intelligence-{tag.lower().replace(' ', '-').replace('/', '-')}",
+            "title": f"Advanced Guide to {tag} for Commercial Real Estate in {location}",
+            "description": f"A comprehensive analysis of {tag} trends and B2B developers and general contractors operating in {location} in 2026.",
+            "tag": tag,
+            "date": post_date,
+            "readTime": f"{4 + (i % 5)} min read",
+            "keywords": [f"{tag.lower()} {location}", kw[0], kw[1]],
+            "sections": [
+                {
+                    "heading": f"Understanding {tag} in {location} Metro Market",
+                    "text": f"As commercial development in the {location} area matures, B2B planners are encountering new regulations, labor dynamics, and material price indexes. Navigating these factors requires a proactive approach to site estimations and structural layouts."
+                },
+                {
+                    "heading": f"Key Metrics for {tag} (2026 Reference)",
+                    "text": f"Below is a summarized table of cost and operational indicators for projects focusing on {tag} in the local market:",
+                    "table": [
+                        ["Project Phase", "Relative Cost Index", "Estimated Schedule Impact"],
+                        ["Feasibility & Pre-con", "Low (3% of budget)", "1 - 3 Weeks"],
+                        ["BIM Design & Modeling", "Medium (6% of budget)", "2 - 4 Weeks"],
+                        ["Foundation & Structural Steel", "High (45% of budget)", "8 - 12 Weeks"],
+                        ["Occupancy Inspection & Handover", "Low (2% of budget)", "2 - 3 Weeks"]
+                    ]
+                },
+                {
+                    "heading": "Maximizing Project Efficiency",
+                    "text": f"By working with a unified design-build company, commercial developers in {location} can consolidate their engineering, architectural drafting, and project management under a single general contract, resulting in faster occupancy and reduced overhead."
+                }
+            ]
+        }
+        blog_posts.append(post)
 
 # Sort by date descending
 blog_posts.sort(key=lambda x: datetime.strptime(x["date"], "%Y-%m-%d"), reverse=True)
@@ -397,7 +408,7 @@ def get_template(post):
           <p class="section-desc">Connect with our construction consultants in Austin, Houston, Dallas, or Atlanta today.</p>
         </div>
 
-        <form class="contact-form reveal" onsubmit="event.preventDefault(); alert('Thank you for contacting ApexVertex. A representative will contact you shortly.');">
+        <form class="contact-form reveal">
           <div style="margin-bottom: 1.5rem;">
             <label for="client-name" style="display: block; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--text-muted);">Your Name</label>
             <input type="text" id="client-name" required style="width: 100%; padding: 0.8rem; background: var(--navy-dark); border: 1px solid var(--navy-border); border-radius: 4px; color: var(--white); font-family: inherit;">
@@ -475,7 +486,7 @@ def get_template(post):
         <div class="footer-col">
           <h4>Stay Updated</h4>
           <p class="newsletter-desc">Subscribe to our newsletter for 2026 cost indices and building trends in TX and GA.</p>
-          <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Successfully subscribed.');">
+          <form class="newsletter-form">
             <div class="newsletter-input-group">
               <input type="email" placeholder="Enter your email" class="newsletter-input" required aria-label="Email address for newsletter subscription">
               <button type="submit" class="newsletter-submit" aria-label="Subscribe to Newsletter">
@@ -545,19 +556,133 @@ def get_template(post):
     mobileMenuCloseBtn.addEventListener('click', closeMobileMenu);
     menuOverlay.addEventListener('click', closeMobileMenu);
     mobileLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
+
+    // Form AJAX Handling
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {{
+      contactForm.addEventListener('submit', async (e) => {{
+        e.preventDefault();
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerText;
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Submitting Request...';
+
+        const name = document.getElementById('client-name').value;
+        const email = document.getElementById('client-email').value;
+        const projectType = document.getElementById('project-type').value;
+        const message = document.getElementById('client-msg').value;
+
+        // Validation check
+        if (!email || !name || !message) {{
+          showFormFeedback(contactForm, 'Please fill in all required fields.', false);
+          submitBtn.disabled = false;
+          submitBtn.innerText = originalText;
+          return;
+        }}
+
+        try {{
+          const response = await fetch('/api/contact', {{
+            method: 'POST',
+            headers: {{ 'Content-Type': 'application/json' }},
+            body: JSON.stringify({{ name, email, projectType, message }})
+          }});
+
+          const result = await response.json();
+          if (response.ok && result.success) {{
+            showFormFeedback(contactForm, 'Thank you! Your request has been securely routed to our business communications team.', true);
+            contactForm.reset();
+          }} else {{
+            showFormFeedback(contactForm, result.error || 'Submission failed. Please check inputs and try again.', false);
+          }}
+        }} catch (err) {{
+          showFormFeedback(contactForm, 'Network error. Please try again later.', false);
+        }} finally {{
+          submitBtn.disabled = false;
+          submitBtn.innerText = originalText;
+        }}
+      }});
+    }}
+
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if (newsletterForm) {{
+      newsletterForm.addEventListener('submit', async (e) => {{
+        e.preventDefault();
+        const emailInput = newsletterForm.querySelector('.newsletter-input');
+        const submitBtn = newsletterForm.querySelector('.newsletter-submit');
+        const originalHtml = submitBtn.innerHTML;
+        
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '...';
+
+        const email = emailInput.value;
+
+        try {{
+          const response = await fetch('/api/subscribe', {{
+            method: 'POST',
+            headers: {{ 'Content-Type': 'application/json' }},
+            body: JSON.stringify({{ email }})
+          }});
+
+          const result = await response.json();
+          if (response.ok && result.success) {{
+            alert('Successfully subscribed to 2026 cost indices & building trends!');
+            newsletterForm.reset();
+          }} else {{
+            alert(result.error || 'Subscription failed. Please check inputs.');
+          }}
+        }} catch (err) {{
+          alert('Network error. Please try again later.');
+        }} finally {{
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalHtml;
+        }}
+      }});
+    }}
+
+    function showFormFeedback(formElement, message, isSuccess) {{
+      let feedback = formElement.querySelector('.form-feedback');
+      if (!feedback) {{
+        feedback = document.createElement('div');
+        feedback.className = 'form-feedback';
+        feedback.style.marginTop = '1.5rem';
+        feedback.style.padding = '1rem';
+        feedback.style.borderRadius = '4px';
+        feedback.style.fontSize = '0.9rem';
+        feedback.style.fontWeight = '500';
+        feedback.style.textAlign = 'center';
+        feedback.style.transition = 'all 0.3s ease';
+        formElement.appendChild(feedback);
+      }}
+      feedback.innerText = message;
+      if (isSuccess) {{
+        feedback.style.background = 'rgba(76, 175, 80, 0.15)';
+        feedback.style.border = '1px solid #4CAF50';
+        feedback.style.color = '#4CAF50';
+      }} else {{
+        feedback.style.background = 'rgba(244, 67, 54, 0.15)';
+        feedback.style.border = '1px solid #f44336';
+        feedback.style.color = '#f44336';
+      }}
+      setTimeout(() => {{
+        feedback.style.opacity = '1';
+      }}, 50);
+    }}
   </script>
 </body>
 </html>"""
 
 print(f"Generating {{len(blog_posts)}} blog posts...")
+blog_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "blog")
+os.makedirs(blog_dir, exist_ok=True)
+
 for post in blog_posts:
     html_content = get_template(post)
-    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), f"{{post['slug']}}.html")
+    file_path = os.path.join(blog_dir, f"{{post['slug']}}.html")
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(html_content)
 
-meta_data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "blogs-meta.json")
-with open(meta_data_path, "w", encoding="utf-8") as f:
+meta_data_path_out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "blogs-meta.json")
+with open(meta_data_path_out, "w", encoding="utf-8") as f:
     json.dump(blog_posts, f, indent=2)
 
 print("Successfully generated all blog posts and blogs-meta.json!")

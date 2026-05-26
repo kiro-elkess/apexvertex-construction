@@ -346,14 +346,14 @@
               <span>${post.readTime}</span>
             </div>
             <h3 style="font-size: 1.3rem; line-height: 1.3; margin-bottom: 0.8rem; margin-top: 0.2rem;">
-              <a href="/${post.slug}" style="color: var(--white);">${post.title}</a>
+              <a href="/blog/${post.slug}" style="color: var(--white);">${post.title}</a>
             </h3>
             <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; flex-grow: 1;">
               ${post.description}
             </p>
             <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--navy-border); padding-top: 1rem;">
               <span>Published: ${post.date}</span>
-              <a href="/${post.slug}" class="blog-read-more" style="color: var(--primary-orange); font-weight: bold;">
+              <a href="/blog/${post.slug}" class="blog-read-more" style="color: var(--primary-orange); font-weight: bold;">
                 Read Article &rarr;
               </a>
             </div>
@@ -470,6 +470,117 @@
     mobileMenuCloseBtn.addEventListener('click', closeMobileMenu);
     menuOverlay.addEventListener('click', closeMobileMenu);
     mobileLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
+
+    // Form AJAX Handling
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerText;
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Submitting Request...';
+
+        const name = document.getElementById('client-name').value;
+        const email = document.getElementById('client-email').value;
+        const projectType = document.getElementById('project-type').value;
+        const message = document.getElementById('client-msg').value;
+
+        // Validation check
+        if (!email || !name || !message) {
+          showFormFeedback(contactForm, 'Please fill in all required fields.', false);
+          submitBtn.disabled = false;
+          submitBtn.innerText = originalText;
+          return;
+        }
+
+        try {
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, projectType, message })
+          });
+
+          const result = await response.json();
+          if (response.ok && result.success) {
+            showFormFeedback(contactForm, 'Thank you! Your request has been securely routed to our business communications team.', true);
+            contactForm.reset();
+          } else {
+            showFormFeedback(contactForm, result.error || 'Submission failed. Please check inputs and try again.', false);
+          }
+        } catch (err) {
+          showFormFeedback(contactForm, 'Network error. Please try again later.', false);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerText = originalText;
+        }
+      });
+    }
+
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const emailInput = newsletterForm.querySelector('.newsletter-input');
+        const submitBtn = newsletterForm.querySelector('.newsletter-submit');
+        const originalHtml = submitBtn.innerHTML;
+        
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '...';
+
+        const email = emailInput.value;
+
+        try {
+          const response = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+          });
+
+          const result = await response.json();
+          if (response.ok && result.success) {
+            alert('Successfully subscribed to 2026 cost indices & building trends!');
+            newsletterForm.reset();
+          } else {
+            alert(result.error || 'Subscription failed. Please check inputs.');
+          }
+        } catch (err) {
+          alert('Network error. Please try again later.');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalHtml;
+        }
+      });
+    }
+
+    function showFormFeedback(formElement, message, isSuccess) {
+      let feedback = formElement.querySelector('.form-feedback');
+      if (!feedback) {
+        feedback = document.createElement('div');
+        feedback.className = 'form-feedback';
+        feedback.style.marginTop = '1.5rem';
+        feedback.style.padding = '1rem';
+        feedback.style.borderRadius = '4px';
+        feedback.style.fontSize = '0.9rem';
+        feedback.style.fontWeight = '500';
+        feedback.style.textAlign = 'center';
+        feedback.style.transition = 'all 0.3s ease';
+        formElement.appendChild(feedback);
+      }
+      feedback.innerText = message;
+      if (isSuccess) {
+        feedback.style.background = 'rgba(76, 175, 80, 0.15)';
+        feedback.style.border = '1px solid #4CAF50';
+        feedback.style.color = '#4CAF50';
+      } else {
+        feedback.style.background = 'rgba(244, 67, 54, 0.15)';
+        feedback.style.border = '1px solid #f44336';
+        feedback.style.color = '#f44336';
+      }
+      setTimeout(() => {
+        feedback.style.opacity = '1';
+      }, 50);
+    }
   </script>
 </body>
 </html>
