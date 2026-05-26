@@ -185,7 +185,7 @@ a {
 .header-nav {
   position: sticky;
   top: 0;
-  background: rgba(7, 13, 30, 0.8);
+  background: rgba(7, 13, 30, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--navy-border);
