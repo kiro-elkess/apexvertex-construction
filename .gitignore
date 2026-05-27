@@ -3,3 +3,9 @@
 Thumbs.db
 desktop.ini
 *.log
+
+# Dependencies
+node_modules/
+
+# Build artifacts (keep the speed-insights bundle as it needs to be deployed)
+# public/speed-insights-bundle.js is intentionally NOT ignored
